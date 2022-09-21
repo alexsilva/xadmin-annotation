@@ -1,0 +1,23 @@
+<div class="input-group">
+  {% include 'django/forms/widgets/input.html' %}
+  <div class="input-group-text mr-1">
+    {{ widget.attrs.verbose_name }}
+  </div>
+  <div class="btn-group btn-group-toggle" title="Visualizar">
+    <label class="btn btn-secondary">
+      <input type="radio" name="options" autocomplete="off"
+             class="annotations-list"
+             data-url="{{ widget.attrs.url }}"
+             data-for_id="{{ widget.attrs.id }}">
+      <i class="fa fa-list"></i>
+      <span class="d-none d-md-inline">Visualizar</span>
+    </label>
+    <label class="btn btn-primary" title="create">
+      <input type="radio" name="options" autocomplete="off"
+             class="annotations-create"
+             data-url="{{ widget.attrs.url }}"
+             data-for_id="{{ widget.attrs.id }}">
+      <i class="fa fa-plus"></i>
+    </label>
+  </div>
+</div>
