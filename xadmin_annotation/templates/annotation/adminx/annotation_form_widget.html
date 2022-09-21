@@ -3,14 +3,12 @@
   <div class="input-group-text mr-1">
     {{ widget.attrs.verbose_name }}
   </div>
-  <div class="btn-group btn-group-toggle" title="Visualizar">
-    <label class="btn btn-secondary">
-      <input type="radio" name="options" autocomplete="off"
-             class="annotations-list"
-             data-url="{{ widget.attrs.url }}"
-             data-for_id="{{ widget.attrs.id }}">
-      <i class="fa fa-list"></i>
-      <span class="d-none d-md-inline">Visualizar</span>
-    </label>
-  </div>
+
+  <button type="button" class="btn btn-secondary annotations-list" title="Visualizar"
+          data-url="{{ widget.attrs.url }}"
+          data-for_id="{{ widget.attrs.id }}">
+    <i class="fa fa-list"></i>
+    <span class="d-none d-sm-inline">Visualizar</span>
+    <span class="badge badge-primary">{{ widget.attrs.count }}</span>
+  </button>
 </div>

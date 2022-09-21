@@ -47,6 +47,9 @@ class AnnotationPlugin(BaseAdminPlugin):
 			queryset.update(object_id=instance.pk,
 			                content_type=self.content_type)
 
+	def get_annotation_queryset(self):
+		return self.annotation_model.objects.all()
+
 	def quick_addtn(self, widget):
 		"""Create the widget with the quickform plugin button."""
 		add_url = self.admin_view.get_model_url(self.annotation_model, "add")
@@ -68,6 +71,7 @@ class AnnotationPlugin(BaseAdminPlugin):
 			'url': self.admin_view.get_model_url(self.annotation_model, "changelist"),
 			'verbose_name': (getattr(self.annotation_opts, "verbose_name", None) or
 			                 self.annotation_opts.model_name.upper()),
+			'count': self.get_annotation_queryset().count(),
 			'value': self.key
 		}
 		return context
