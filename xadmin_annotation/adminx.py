@@ -22,6 +22,9 @@ class AnnotationAdmin:
 	hidden_menu = True
 	exclude = ('user',)
 	list_filter = ('object_id',)
+	search_fields = (
+		"description",
+	)
 	formfield_widgets = {
 		'key': django_forms.HiddenInput,
 		'object_id': django_forms.HiddenInput,
