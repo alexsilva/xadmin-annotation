@@ -78,6 +78,8 @@ class AnnotationPlugin(BaseAdminPlugin):
 		if instance:
 			# It only counts objects from that instance.
 			qs = qs.filter(object_id=instance.pk)
+		else:
+			qs = qs.filter(key=self.key)
 		count = qs.count()
 		verbose_name = (getattr(self.annotation_opts, "verbose_name", None) or
 		                self.annotation_opts.model_name.upper())
@@ -87,6 +89,7 @@ class AnnotationPlugin(BaseAdminPlugin):
 			'verbose_name_plural': (getattr(self.annotation_opts, "verbose_name_plural", None) or
 			                        verbose_name),
 			'object_id': instance.pk if instance else '',
+			'object_key': self.key,
 			'filter_prefix': FILTER_PREFIX,
 			'count': count,
 			'value': self.key

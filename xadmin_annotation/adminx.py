@@ -23,7 +23,7 @@ site.register_plugin(AnnotationPlugin, ModelFormAdminView)
 class AnnotationAdmin:
 	hidden_menu = True
 	exclude = ('user',)
-	list_filter = ('object_id',)
+	list_filter = ('object_id', 'key')
 	search_fields = (
 		"description",
 	)

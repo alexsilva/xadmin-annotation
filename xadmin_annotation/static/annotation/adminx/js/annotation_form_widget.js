@@ -4,6 +4,7 @@ $(function () {
             csrftoken = $.getCookie('csrftoken'),
             for_id = $el.data("for_id"),
             object_id = $el.data('object_id'),
+            object_key = $el.data('object_key'),
             filter_prefix = $el.data('filter_prefix'),
             $modal = $el.data("modal"),
             $container;
@@ -64,7 +65,13 @@ $(function () {
                     _fields: fields.join(",")
                 }
                 // filter
-                params[filter_prefix + "object_id__exact"] = object_id;
+                if (!object_id) {
+                    // instance creation
+                    params[filter_prefix + "key__in"] = object_key;
+                } else {
+                    // instance update
+                    params[filter_prefix + "object_id__exact"] = object_id;
+                }
                 return $.ajax({
                     url: $el.data("url"),
                     data: params,
