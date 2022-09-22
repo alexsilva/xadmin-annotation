@@ -37,7 +37,7 @@ $(function () {
                     $thead = $("<thead>").appendTo($table),
                     $tbody = $("<tbody>").appendTo($table),
                     $headers = $("<tr>").appendTo($thead),
-                    $rows;
+                    $rows, $cols;
 
                 Object.keys(res.headers).forEach(function (key) {
                     $headers.append($.fn.nunjucks_env.renderString("<td>{{text}}</td>", {
@@ -49,9 +49,8 @@ $(function () {
                     for (index_inner = 0; index_inner < fields.length; index_inner++) {
                         field = fields[index_inner];
                         value = results[index][field];
-                        $rows.append($.fn.nunjucks_env.renderString("<td>{{text}}</td>", {
-                            text: value
-                        }));
+                        $cols = $('<td>').appendTo($rows);
+                        $cols.html($('<div/>').html(value).text());
                     }
                 }
                 if (res.has_more) {
