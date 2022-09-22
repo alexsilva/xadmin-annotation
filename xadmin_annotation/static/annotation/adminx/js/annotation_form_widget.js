@@ -3,6 +3,8 @@ $(function () {
         var $el = $(this),
             csrftoken = $.getCookie('csrftoken'),
             for_id = $el.data("for_id"),
+            object_id = $el.data('object_id'),
+            filter_prefix = $el.data('filter_prefix'),
             $modal = $el.data("modal"),
             $container;
         if (!$modal) {
@@ -56,9 +58,15 @@ $(function () {
                 }
             },
             load_data = function (page_num) {
+                var params = {
+                    page: page_num,
+                    _fields: fields.join(",")
+                }
+                // filter
+                params[filter_prefix + "object_id__exact"] = object_id;
                 return $.ajax({
                     url: $el.data("url"),
-                    data: {page: page_num, _fields: fields.join(",")},
+                    data: params,
                     beforeSend: function (xhr, settings) {
                         xhr.setRequestHeader("X-CSRFToken", csrftoken);
                     },

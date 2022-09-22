@@ -21,6 +21,7 @@ site.register_plugin(AnnotationPlugin, ModelFormAdminView)
 class AnnotationAdmin:
 	hidden_menu = True
 	exclude = ('user',)
+	list_filter = ('object_id',)
 	formfield_widgets = {
 		'key': django_forms.HiddenInput,
 		'object_id': django_forms.HiddenInput,

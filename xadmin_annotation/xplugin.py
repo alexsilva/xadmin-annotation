@@ -4,6 +4,7 @@ import urllib.parse
 import uuid
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import ManyToManyField
+from xadmin.filters import FILTER_PREFIX
 from xadmin.plugins.quickform import RelatedFieldWidgetWrapper
 from xadmin.views.base import BaseAdminPlugin
 from xadmin_annotation import settings
@@ -72,11 +73,19 @@ class AnnotationPlugin(BaseAdminPlugin):
 
 	def get_widget_context(self):
 		"""Context passed to AnnotationField."""
+		instance = self.admin_view.org_obj
+		qs = self.get_annotation_queryset()
+		if instance:
+			# It only counts objects from that instance.
+			qs = qs.filter(object_id=instance.pk)
+		count = qs.count()
 		context = {
 			'url': self.admin_view.get_model_url(self.annotation_model, "changelist"),
 			'verbose_name': (getattr(self.annotation_opts, "verbose_name", None) or
 			                 self.annotation_opts.model_name.upper()),
-			'count': self.get_annotation_queryset().count(),
+			'object_id': instance.pk if instance else '',
+			'filter_prefix': FILTER_PREFIX,
+			'count': count,
 			'value': self.key
 		}
 		return context
