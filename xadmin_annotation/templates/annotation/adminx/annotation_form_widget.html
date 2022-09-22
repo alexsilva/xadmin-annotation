@@ -1,6 +1,8 @@
+{% load i18n %}
 <div class="input-group">
   {% include 'django/forms/widgets/input.html' %}
-  <button type="button" class="btn btn-secondary annotations" title="Visualizar {{ widget.attrs.verbose_name }}"
+  <button type="button" class="btn btn-secondary annotations"
+          title="{% blocktrans with widget.attrs.verbose_name as verbose_name %}View {{ verbose_name }}{% endblocktrans %}"
           data-title="{{ widget.attrs.verbose_name_plural }}"
           data-url="{{ widget.attrs.url }}"
           data-for_id="{{ widget.attrs.id }}"
@@ -8,7 +10,7 @@
           data-object_key="{{ widget.attrs.object_key }}"
           data-filter_prefix="{{ widget.attrs.filter_prefix }}">
     <i class="fa fa-list"></i>
-    <span class="d-none d-sm-inline">Visualizar</span>
+    <span class="d-none d-sm-inline">{% trans 'View' %}</span>
     <span class="badge badge-primary">{{ widget.attrs.count }}</span>
   </button>
 </div>
