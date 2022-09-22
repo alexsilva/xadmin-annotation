@@ -105,9 +105,10 @@ class AnnotationPlugin(BaseAdminPlugin):
 	def get_form_class(self, form):
 		if not isinstance(form, AnnotationForm):
 			bases = (AnnotationForm, form)
-			widget = self.quick_addtn(AnnotationWidget(attrs=self.get_widget_context()))
+			context = self.get_widget_context()
+			widget = self.quick_addtn(AnnotationWidget(attrs=context))
 			form = type(''.join([f.__name__ for f in bases]), bases, {
-				self.rel_field: AnnotationField(widget=widget)
+				self.rel_field: AnnotationField(label=context['verbose_name'], widget=widget)
 			})
 		return form
 
