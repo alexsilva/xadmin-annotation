@@ -1,0 +1,68 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-22 17:22-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: adminx.py:45
+msgid "creation date"
+msgstr "data de criação"
+
+#: apps.py:10 models.py:31
+msgid "Annotation"
+msgstr "Anotação"
+
+#: models.py:11
+msgid "key"
+msgstr "chave"
+
+#: models.py:14
+msgid "user"
+msgstr "usuário"
+
+#: models.py:16
+msgid "description"
+msgstr "descrição"
+
+#: models.py:17
+msgid "created at"
+msgstr "criado em"
+
+#: models.py:18
+msgid "updated at"
+msgstr "atualizado em"
+
+#: models.py:22
+msgid "content"
+msgstr "conteúdo"
+
+#: models.py:25
+msgid "object id"
+msgstr "id objeto"
+
+#: models.py:32
+msgid "Annotations"
+msgstr "Anotações"
+
+#: templates/annotation/adminx/annotation_form_widget.html:5
+#, python-format
+msgid "View %(verbose_name)s"
+msgstr "Ver %(verbose_name)s"
+
+#: templates/annotation/adminx/annotation_form_widget.html:13
+msgid "View"
+msgstr "Ver"
