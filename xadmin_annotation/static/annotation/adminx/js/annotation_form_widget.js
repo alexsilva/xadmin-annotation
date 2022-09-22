@@ -45,7 +45,7 @@ $(function () {
                     var $btn = $("<button>",{
                         type: "button",
                         class: "btn btn-secondary"
-                    }).html("<i class='d-none'></i>Carregar mais...");
+                    }).html("<i class='d-none'></i> Carregar mais...");
                     $btn.click(function (){
                         var $loading = $btn.find("i")
                             .addClass("fa fa-sm fa-spinner fa-spin")
