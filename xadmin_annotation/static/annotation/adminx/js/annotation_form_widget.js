@@ -41,7 +41,7 @@ $(function () {
                         }));
                     }
                 }
-                if (!res.has_more) {
+                if (res.has_more) {
                     var $btn = $("<button>",{
                         type: "button",
                         class: "btn btn-secondary"
@@ -71,7 +71,7 @@ $(function () {
                         xhr.setRequestHeader("X-CSRFToken", csrftoken);
                     },
                     success: function (res, textStatus, jqXHR) {
-                        var $tb = $("<table class='table'></table>");
+                        var $tb = $("<table class='table table-striped table-bordered table-sm'></table>");
                         $container.html($tb);
                         render_item($tb, res);
                     }
