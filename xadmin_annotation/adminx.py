@@ -20,7 +20,7 @@ site.register_plugin(AnnotationPlugin, ModelFormAdminView)
 
 
 @register(Annotation)
-class AnnotationAdmin:
+class AnnotationAdmin(settings.ANNOTATION_ADMINX_BASE):
 	hidden_menu = True
 	exclude = ('user',)
 	list_filter = ('object_id', 'key')
