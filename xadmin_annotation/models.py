@@ -30,6 +30,7 @@ class Annotation(models.Model):
 	class Meta:
 		verbose_name = _("Annotation")
 		verbose_name_plural = _("Annotations")
+		ordering = ("created_at",)
 		indexes = [
 			models.Index(fields=["content_type", "object_id"]),
 		]

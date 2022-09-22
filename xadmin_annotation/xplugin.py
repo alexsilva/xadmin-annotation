@@ -20,10 +20,10 @@ class AnnotationPlugin(BaseAdminPlugin):
 	annotation_model = Annotation
 
 	def init_request(self, *args, **kwargs):
-		name = f"{self.opts.app_label}.{self.opts.model_name}"
+		self.modal_name = f"{self.opts.app_label}.{self.opts.model_name}"
 		is_active = False
 		for md in settings.ANNOTATION_FOR_MODELS:
-			is_active = md.lower() == name
+			is_active = md.lower() == self.modal_name
 			if is_active:
 				break
 		return is_active
@@ -52,9 +52,14 @@ class AnnotationPlugin(BaseAdminPlugin):
 
 	def quick_addtn(self, widget):
 		"""Create the widget with the quickform plugin button."""
+		instance = self.admin_view.org_obj
 		add_url = self.admin_view.get_model_url(self.annotation_model, "add")
 		rel_add_url = self.admin_view.get_model_url(self.model, "add")
-		add_url += "?" + urllib.parse.urlencode({"key": self.key})
+		add_url += "?" + urllib.parse.urlencode({
+			"key": self.key,
+			'rel_id': instance.pk if instance else '',
+			"rel_model": self.modal_name
+		})
 		return RelatedFieldWidgetWrapper(
 			widget,
 			ManyToManyField(self.annotation_model).remote_field,
@@ -62,7 +67,7 @@ class AnnotationPlugin(BaseAdminPlugin):
 			rel_add_url,
 			change_url=None,
 			rel_change_url=None,
-			request_params=dict(self.request.GET)
+			request_params=self.request.GET.copy()
 		)
 
 	def get_widget_context(self):
