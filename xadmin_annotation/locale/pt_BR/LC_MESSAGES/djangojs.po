@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-22 17:38-0300\n"
+"POT-Creation-Date: 2022-09-22 18:18-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: static/annotation/adminx/js/annotation_form_widget.js:50
+#: static/annotation/adminx/js/annotation_form_widget.js:28
+msgid "Failed to load data."
+msgstr "Falha no carregamento dados."
+
+#: static/annotation/adminx/js/annotation_form_widget.js:61
 msgid "Load more..."
 msgstr "Carregar mais..."
