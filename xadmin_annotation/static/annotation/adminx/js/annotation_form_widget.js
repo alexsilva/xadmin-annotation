@@ -25,7 +25,7 @@ $(function () {
                 classes: 'annotation-retry',
                 text:$.fn.nunjucks_env.renderString(
                     '<a href="javascript:(window.xadmin.load_annotation_list($(\'div.annotation-retry\').data(\'page_num\')));">{{msg}}</a>',
-                    {msg: gettext("Failed to load data")},
+                    {msg: gettext("Failed to load data.")},
                 ),
                 header: "h6"
             })),
