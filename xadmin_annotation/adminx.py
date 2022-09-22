@@ -1,7 +1,9 @@
 # coding=utf-8
 import django.forms as django_forms
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
+from django.utils.formats import date_format
 from xadmin.sites import register
 from xadmin.sites import site
 from xadmin.views.edit import ModelFormAdminView
@@ -36,6 +38,13 @@ class AnnotationAdmin:
 		'content_type',
 		'description',
 	)
+
+	def tb_created(self, instance):
+		"""Formatted creation date"""
+		return date_format(instance.created_at)
+	tb_created.short_description = _("creation date")
+	tb_created.admin_order_field = "created_dt"
+	tb_created.is_column = True
 
 	def _get_initial_object(self):
 		initial = {}

@@ -16,7 +16,7 @@ $(function () {
             $el.data("modal", $modal)
         }
         $container = $modal.find(".modal-body");
-        var fields = ["user", "description"],
+        var fields = ["user", "description", "tb_created"],
             render_item = function ($table, res) {
                 var index,
                     index_inner,
