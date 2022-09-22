@@ -1,6 +1,7 @@
 <div class="input-group">
   {% include 'django/forms/widgets/input.html' %}
   <button type="button" class="btn btn-secondary annotations" title="Visualizar {{ widget.attrs.verbose_name }}"
+          data-title="{{ widget.attrs.verbose_name_plural }}"
           data-url="{{ widget.attrs.url }}"
           data-for_id="{{ widget.attrs.id }}"
           data-object_id="{{ widget.attrs.object_id }}"

@@ -9,6 +9,7 @@ $(function () {
             $container;
         if (!$modal) {
             $modal = $("#nunjucks-modal-main").template_render$({
+                header: {title: $el.data('title')},
                 modal: {size: 'modal-lg'},
                 cancel_button: {'class': 'btn-sm'}
             }).appendTo('body');

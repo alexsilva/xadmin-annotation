@@ -79,10 +79,13 @@ class AnnotationPlugin(BaseAdminPlugin):
 			# It only counts objects from that instance.
 			qs = qs.filter(object_id=instance.pk)
 		count = qs.count()
+		verbose_name = (getattr(self.annotation_opts, "verbose_name", None) or
+		                self.annotation_opts.model_name.upper())
 		context = {
 			'url': self.admin_view.get_model_url(self.annotation_model, "changelist"),
-			'verbose_name': (getattr(self.annotation_opts, "verbose_name", None) or
-			                 self.annotation_opts.model_name.upper()),
+			'verbose_name': verbose_name,
+			'verbose_name_plural': (getattr(self.annotation_opts, "verbose_name_plural", None) or
+			                        verbose_name),
 			'object_id': instance.pk if instance else '',
 			'filter_prefix': FILTER_PREFIX,
 			'count': count,
