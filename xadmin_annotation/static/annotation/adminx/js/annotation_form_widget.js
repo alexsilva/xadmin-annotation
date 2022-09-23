@@ -13,7 +13,10 @@ $(function () {
             $modal = $("#nunjucks-modal-main").template_render$({
                 header: {title: $el.data('title')},
                 modal: {size: 'modal-lg'},
-                cancel_button: {'class': 'btn-sm'}
+                cancel_button: {
+                    'class': 'btn-sm',
+                    text: '<i class="fa fa-times" aria-hidden="true"></i> ' + gettext("Close")
+                },
             }).appendTo('body');
             $el.data("modal", $modal)
         }
