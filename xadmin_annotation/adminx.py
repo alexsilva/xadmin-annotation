@@ -74,7 +74,7 @@ class AnnotationAdmin(settings.ANNOTATION_ADMINX_BASE):
 
 	def get_form_datas(self):
 		data = super().get_form_datas()
-		if self.request_method == 'get':
+		if self.request_method == 'get' and self.request.is_ajax():
 			key = self.request.GET['key']
 			initial = data.setdefault("initial", {})
 			initial[settings.ANNOTATION_RELATION_FIELD] = key
