@@ -6,6 +6,7 @@ $(function () {
             object_id = $el.data('object_id'),
             object_key = $el.data('object_key'),
             filter_prefix = $el.data('filter_prefix'),
+            page_param = $el.data('page_param'),
             $modal = $el.data("modal"),
             $container;
         if (!$modal) {
@@ -23,7 +24,7 @@ $(function () {
             $reload = $($.fn.nunjucks_env.renderString(mask_tmpl, {
                 icon: 'fa fa-exclamation-circle text-danger',
                 classes: 'annotation-retry',
-                text:$.fn.nunjucks_env.renderString(
+                text: $.fn.nunjucks_env.renderString(
                     '<a href="javascript:(window.xadmin.load_annotation_list($(\'div.annotation-retry\').data(\'page_num\')));">{{msg}}</a>',
                     {msg: gettext("Failed to load data.")},
                 ),
@@ -37,7 +38,8 @@ $(function () {
                     $thead = $("<thead>").appendTo($table),
                     $tbody = $("<tbody>").appendTo($table),
                     $headers = $("<tr>").appendTo($thead),
-                    $rows, $cols;
+                    $rows, $cols,
+                    $btn;
 
                 Object.keys(res.headers).forEach(function (key) {
                     $headers.append($.fn.nunjucks_env.renderString("<td>{{text}}</td>", {
@@ -53,27 +55,61 @@ $(function () {
                         $cols.html($('<div/>').html(value).text());
                     }
                 }
-                if (res.has_more) {
-                    var $btn = $("<button>",{
+                var go_page = function (options) {
+                    if (!options.classes)
+                        options.classes = "btn btn-secondary";
+                    var content = "{% if icon %}<i class='{{icon}}' aria-hidden='true'></i>{% endif %} {{text}}";
+                    $btn = $("<button>", {
                         type: "button",
-                        class: "btn btn-secondary"
-                    }).html("<i class='d-none'></i> " + gettext('Load more...'));
-                    $btn.click(function (){
-                        var $loading = $btn.find("i")
-                            .addClass("fa fa-sm fa-spinner fa-spin")
-                            .removeClass("d-none");
-                        load_data(res.page_num + 1).always(function (){
-                            $loading.addClass("d-none");
-                        })
-                    })
-                    $container.append($btn)
+                        class: options.classes,
+                    }).html($.fn.nunjucks_env.renderString(content, {
+                        icon: options.icon,
+                        text: options.text
+                    }));
+                    if (!options.event) {
+                        options.event = function () {
+                            $btn.find("i").addClass("fa fa-sm fa-spinner fa-spin");
+                            load_annotation_list(options.page_num);
+                        }
+                    }
+                    $btn.click(options.event)
+                    $container.append($btn);
+                    return $btn
+                }
+                if (res.has_more || res.page_num > 0) {
+                    go_page({
+                        page_num: res.page_num - 1,
+                        icon: "fa fa-backward",
+                        text: gettext('Back'),
+                        classes: "btn btn-primary"
+                    }).prop('disabled', res.page_num <= 0);
+                }
+                if (res.has_more) {
+                    go_page({
+                        page_num: res.page_num + 1,
+                        text: gettext('Next'),
+                        classes: "btn btn-primary",
+                        icon: "fa fa-forward",
+                        event: function () {
+                            var $loading = $btn.find("i")
+                                .addClass("fa fa-sm fa-spinner fa-spin")
+                                .removeClass("d-none");
+                            load_annotation_list(res.page_num + 1).always(function () {
+                                $loading.addClass("d-none");
+                            })
+                        }
+                    });
+                } else if (res.page_num > 0) {
+                    go_page({
+                        page_num: 0,
+                        icon: "fa fa-home",
+                        text: gettext('Start')
+                    });
                 }
             },
             load_annotation_list = function (page_num) {
-                var params = {
-                    page: page_num,
-                    _fields: fields.join(",")
-                }
+                var params = {_fields: fields.join(",")}
+                params[page_param] = page_num;
                 // filter
                 if (!object_id) {
                     // instance creation
@@ -109,7 +145,7 @@ $(function () {
                 });
             }
         window.xadmin.load_annotation_list = load_annotation_list;
-        load_annotation_list(1);
+        load_annotation_list(0);
         $modal.modal();
     })
 });

@@ -7,6 +7,7 @@ from django.db.models import ManyToManyField
 from xadmin.filters import FILTER_PREFIX
 from xadmin.plugins.quickform import RelatedFieldWidgetWrapper
 from xadmin.views.base import BaseAdminPlugin
+from xadmin.views.list import PAGE_VAR
 from xadmin_annotation import settings
 from xadmin_annotation.forms.fields import AnnotationField, AnnotationWidget
 from xadmin_annotation.models import Annotation
@@ -91,6 +92,7 @@ class AnnotationPlugin(BaseAdminPlugin):
 			'object_id': instance.pk if instance else '',
 			'object_key': self.key,
 			'filter_prefix': FILTER_PREFIX,
+			'page_param': PAGE_VAR,
 			'count': count,
 			'value': self.key
 		}
