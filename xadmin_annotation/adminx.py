@@ -42,7 +42,7 @@ class AnnotationAdmin(settings.ANNOTATION_ADMINX_BASE):
 
 	def tb_created(self, instance):
 		"""Formatted creation date"""
-		return date_format(instance.created_at)
+		return date_format(instance.created_at, format="DATETIME_FORMAT")
 	tb_created.short_description = _("creation date")
 	tb_created.admin_order_field = "created_dt"
 	tb_created.is_column = True
