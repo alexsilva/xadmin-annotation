@@ -1,0 +1,21 @@
+[project]
+name = "xadmin-annotation"
+version = "1.0.1"
+requires-python = ">=3.9"
+license = {file = ""}
+classifiers = [
+    "Framework :: Django",
+    "Programming Language :: Python :: 3",
+]
+
+[tool.setuptools]
+include-package-data = true
+license-files=["LICENSE"]
+zip-safe = false
+packages = [
+    "xadmin_annotation",
+    "xadmin_annotation.forms"
+]
+
+[tool.setuptools.package-data]
+xadmin_annotation = ["locale/**", "static/**", "templates/**"]
