@@ -27,6 +27,7 @@ class AnnotationAdmin(settings.ANNOTATION_ADMINX_BASE):
 	search_fields = (
 		"description",
 	)
+	ordering = ('created_at',)
 	list_per_page = 10
 	formfield_widgets = {
 		'key': django_forms.HiddenInput,
