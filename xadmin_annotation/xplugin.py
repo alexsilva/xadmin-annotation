@@ -31,6 +31,7 @@ class AnnotationPlugin(BaseAdminPlugin):
 		return is_active
 
 	def setup(self, *args, **kwargs):
+		self.is_editable = self.has_model_perm(self.annotation_model, "add")
 		self.annotation_opts = self.annotation_model._meta
 		self.rel_field = settings.ANNOTATION_RELATION_FIELD
 		self.content_type = ContentType.objects.get_for_model(self.model)
@@ -90,6 +91,7 @@ class AnnotationPlugin(BaseAdminPlugin):
 			'verbose_name_plural': (getattr(self.annotation_opts, "verbose_name_plural", None) or
 			                        verbose_name),
 			'object_id': instance.pk if instance else '',
+			'is_editable': self.is_editable,
 			'object_key': self.key,
 			'filter_prefix': FILTER_PREFIX,
 			'page_param': PAGE_VAR,
@@ -108,7 +110,9 @@ class AnnotationPlugin(BaseAdminPlugin):
 		if not isinstance(form, AnnotationForm):
 			bases = (AnnotationForm, form)
 			context = self.get_widget_context()
-			widget = self.quick_addtn(AnnotationWidget(attrs=context))
+			widget = AnnotationWidget(attrs=context)
+			if self.is_editable:
+				widget = self.quick_addtn(widget)
 			form = type(''.join([f.__name__ for f in bases]), bases, {
 				self.rel_field: AnnotationField(label=context['verbose_name'], widget=widget)
 			})
