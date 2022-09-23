@@ -22,6 +22,9 @@ class AnnotationPlugin(BaseAdminPlugin):
 	annotation_model = Annotation
 
 	def init_request(self, *args, **kwargs):
+		# Need can see to at least load the list.
+		if not self.has_model_perm(self.annotation_model, "view"):
+			return False
 		self.modal_name = f"{self.opts.app_label}.{self.opts.model_name}"
 		is_active = False
 		for md in settings.ANNOTATION_FOR_MODELS:
