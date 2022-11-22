@@ -127,7 +127,7 @@ class AnnotationPlugin(BaseAdminPlugin):
 	def get_field_result(self, result_field, field_name):
 		"""Preview of annotations in the details screen"""
 		if field_name == self.rel_field and self.is_detail:
-			result_field.label = None
+			result_field.label = ""
 			result_field.allow_tags = True
 			result_field.text = render_to_string(
 				"annotation/adminx/annotation_form_field.html",
