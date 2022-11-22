@@ -6,6 +6,7 @@ from django.core.exceptions import ValidationError
 from django.utils.formats import date_format
 from xadmin.sites import register
 from xadmin.sites import site
+from xadmin.views import DetailAdminView
 from xadmin.views.edit import ModelFormAdminView
 from xadmin_annotation import settings
 from xadmin_annotation.models import Annotation
@@ -17,6 +18,7 @@ User = get_user_model()
 
 # create / update
 site.register_plugin(AnnotationPlugin, ModelFormAdminView)
+site.register_plugin(AnnotationPlugin, DetailAdminView)
 
 
 @register(Annotation)

@@ -4,8 +4,10 @@ import urllib.parse
 import uuid
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import ManyToManyField
+from django.template.loader import render_to_string
 from xadmin.filters import FILTER_PREFIX
 from xadmin.plugins.quickform import RelatedFieldWidgetWrapper
+from xadmin.views import DetailAdminView
 from xadmin.views.base import BaseAdminPlugin
 from xadmin.views.list import PAGE_VAR
 from xadmin_annotation import settings
@@ -34,7 +36,8 @@ class AnnotationPlugin(BaseAdminPlugin):
 		return is_active
 
 	def setup(self, *args, **kwargs):
-		self.is_editable = self.has_model_perm(self.annotation_model, "add")
+		self.is_detail = isinstance(self.admin_view, DetailAdminView)
+		self.is_editable = (self.has_model_perm(self.annotation_model, "add") and not self.is_detail)
 		self.annotation_opts = self.annotation_model._meta
 		self.rel_field = settings.ANNOTATION_RELATION_FIELD
 		self.content_type = ContentType.objects.get_for_model(self.model)
@@ -121,5 +124,15 @@ class AnnotationPlugin(BaseAdminPlugin):
 			})
 		return form
 
-	def get_form_fields(self, fields):
-		return fields
+	def get_field_result(self, result_field, field_name):
+		"""Preview of annotations in the details screen"""
+		if field_name == self.rel_field and self.is_detail:
+			result_field.label = None
+			result_field.allow_tags = True
+			result_field.text = render_to_string(
+				"annotation/adminx/annotation_form_field.html",
+				context={
+					'annotation_field': self.admin_view.form_obj[field_name]
+				}
+			)
+		return result_field
