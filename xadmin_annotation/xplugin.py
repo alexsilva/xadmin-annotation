@@ -2,6 +2,7 @@
 import django.forms as django_forms
 import urllib.parse
 import uuid
+from django.utils.translation import gettext as _
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import ManyToManyField
 from django.template.loader import render_to_string
@@ -77,7 +78,8 @@ class AnnotationPlugin(BaseAdminPlugin):
 			rel_add_url,
 			change_url=None,
 			rel_change_url=None,
-			request_params=self.request.GET.copy()
+			request_params=self.request.GET.copy(),
+			title_i18n_add=_('Create %s')
 		)
 
 	def get_widget_context(self):
