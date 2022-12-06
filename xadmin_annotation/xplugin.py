@@ -22,6 +22,7 @@ class AnnotationForm(django_forms.ModelForm):
 
 class AnnotationPlugin(BaseAdminPlugin):
 	annotation_model = Annotation
+	annotation_editable = False
 
 	def init_request(self, *args, **kwargs):
 		# Need can see to at least load the list.
@@ -63,7 +64,7 @@ class AnnotationPlugin(BaseAdminPlugin):
 		"""Create the widget with the quickform plugin button."""
 		instance = self.admin_view.org_obj
 		add_url = self.admin_view.get_model_url(self.annotation_model, "add")
-		rel_add_url = self.admin_view.get_model_url(self.model, "add")
+		rel_add_url = self.admin_view.get_model_url(self.model, "add") if self.annotation_editable else None
 		add_url += "?" + urllib.parse.urlencode({
 			"key": self.key,
 			'rel_id': instance.pk if instance else '',
@@ -113,7 +114,7 @@ class AnnotationPlugin(BaseAdminPlugin):
 		return media
 
 	def get_form_class(self, form):
-		if not isinstance(form, AnnotationForm):
+		if not issubclass(form, AnnotationForm):
 			bases = (AnnotationForm, form)
 			context = self.get_widget_context()
 			widget = AnnotationWidget(attrs=context)
