@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-22 18:21-0300\n"
+"POT-Creation-Date: 2022-12-06 17:36-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: adminx.py:45
+#: adminx.py:49
 msgid "creation date"
 msgstr "data de criação"
 
-#: apps.py:10 models.py:31
+#: apps.py:9 models.py:31
 msgid "Annotation"
 msgstr "Anotação"
 
@@ -63,6 +63,10 @@ msgstr "Anotações"
 msgid "View %(verbose_name)s"
 msgstr "Ver %(verbose_name)s"
 
-#: templates/annotation/adminx/annotation_form_widget.html:13
+#: templates/annotation/adminx/annotation_form_widget.html:14
 msgid "View"
 msgstr "Ver"
+
+#: xplugin.py:82
+msgid "Create %s"
+msgstr "Criar %s"
