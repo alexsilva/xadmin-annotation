@@ -1,5 +1,6 @@
 # coding=utf-8
 import django.forms as django_forms
+from django.utils.module_loading import import_string
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
@@ -20,9 +21,14 @@ User = get_user_model()
 site.register_plugin(AnnotationPlugin, ModelFormAdminView)
 site.register_plugin(AnnotationPlugin, DetailAdminView)
 
+# lazy base import
+AnnotationAdminBase = settings.ANNOTATION_ADMINX_BASE
+if isinstance(AnnotationAdminBase, str):
+	AnnotationAdminBase = import_string(AnnotationAdminBase)
+
 
 @register(Annotation)
-class AnnotationAdmin(settings.ANNOTATION_ADMINX_BASE):
+class AnnotationAdmin(AnnotationAdminBase):
 	hidden_menu = True
 	exclude = ('user',)
 	list_filter = ('object_id', 'key')
