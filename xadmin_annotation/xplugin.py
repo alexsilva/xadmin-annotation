@@ -101,6 +101,7 @@ class AnnotationPlugin(BaseAdminPlugin):
 			                        verbose_name),
 			'object_id': instance.pk if instance else '',
 			'is_editable': self.is_editable,
+			'object_model': self.opts.label_lower,
 			'object_key': self.key,
 			'filter_prefix': FILTER_PREFIX,
 			'page_param': PAGE_VAR,
