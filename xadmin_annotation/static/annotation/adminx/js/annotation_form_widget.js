@@ -110,7 +110,7 @@ $(function () {
                     });
                 }
             },
-            load_annotation_list = function (page_num) {
+            annotation_list = function (page_num) {
                 var params = {_fields: fields.join(",")}
                 params[page_param] = page_num;
                 // filter
@@ -146,6 +146,14 @@ $(function () {
                         $reload.show();
                     }, 500);
                 });
+            },
+            load_annotation_list = function (page_num) {
+                var options = {
+                    handler: annotation_list,
+                    page_num: page_num
+                };
+                $el.trigger("annotation_list", [options]);
+                options.handler(options.page_num);
             }
         window.xadmin.load_annotation_list = load_annotation_list;
         load_annotation_list(0);
