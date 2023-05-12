@@ -121,7 +121,9 @@ class AnnotationPlugin(BaseAdminPlugin):
 			if self.is_editable:
 				widget = self.quick_addtn(widget)
 			form = type(''.join([f.__name__ for f in bases]), bases, {
-				self.rel_field: AnnotationField(label=context['verbose_name'], widget=widget)
+				self.rel_field: AnnotationField(label=context['verbose_name'],
+				                                widget=widget,
+				                                initial=self.key)
 			})
 		return form
 
