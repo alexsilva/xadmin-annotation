@@ -12,7 +12,7 @@ $(function () {
         if (!$modal) {
             $modal = $("#nunjucks-modal-main").template_render$({
                 header: {title: $el.data('title')},
-                modal: {size: 'modal-lg'},
+                modal: {size: 'modal-xl'},
                 cancel_button: {
                     'class': 'btn-sm',
                     text: '<i class="fa fa-times" aria-hidden="true"></i> ' + gettext("Close")
