@@ -27,10 +27,10 @@ class AnnotationPlugin(BaseAdminPlugin):
 
 	def init_request(self, *args, **kwargs):
 		# Need can see to at least load the list.
-		if not self.has_model_perm(self.annotation_model, "view"):
-			return False
-		self.modal_name = f"{self.opts.app_label}.{self.opts.model_name}"
 		is_active = False
+		if not self.has_model_perm(self.annotation_model, "view"):
+			return is_active
+		self.modal_name = self.opts.label_lower
 		for md in settings.ANNOTATION_FOR_MODELS:
 			is_active = md.lower() == self.modal_name
 			if is_active:
@@ -50,16 +50,13 @@ class AnnotationPlugin(BaseAdminPlugin):
 		if instance.pk is not None:
 			# relates the key objects to the content being edited.
 			key = self.admin_view.form_obj.cleaned_data[self.rel_field]
-			queryset = self.annotation_model.objects.filter(
-				key=key,
-				object_id__isnull=True,
-				content_type__isnull=True
-			)
-			queryset.update(object_id=instance.pk,
-			                content_type=self.content_type)
+			qs = self.get_annotation_queryset()
+			queryset = qs.filter(key=key, object_id__isnull=True)
+			if queryset.exists():
+				queryset.update(object_id=instance.pk)
 
 	def get_annotation_queryset(self):
-		return self.annotation_model.objects.all()
+		return self.annotation_model.objects.filter(content_type=self.content_type)
 
 	def quick_addtn(self, widget):
 		"""Create the widget with the quickform plugin button."""
