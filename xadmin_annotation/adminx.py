@@ -59,6 +59,12 @@ class AnnotationAdmin(AnnotationAdminBase):
 	def _get_initial_object(self):
 		initial = {}
 		try:
+			rel_model = self.request.GET["rel_model"]
+		except KeyError:
+			return initial
+		model = apps.get_model(*rel_model.split('.', 1))
+		initial['content_type'] = ContentType.objects.get_for_model(model)
+		try:
 			rel_id = self.request.GET["rel_id"]
 		except KeyError:
 			return initial
@@ -67,12 +73,6 @@ class AnnotationAdmin(AnnotationAdminBase):
 			initial['object_id'] = field.to_python(rel_id)
 		except ValidationError:
 			return initial
-		try:
-			rel_model = self.request.GET["rel_model"]
-		except KeyError:
-			return initial
-		model = apps.get_model(*rel_model.split('.', 1))
-		initial['content_type'] = ContentType.objects.get_for_model(model)
 		return initial
 
 	def get_field_attrs(self, db_field, **kwargs):
