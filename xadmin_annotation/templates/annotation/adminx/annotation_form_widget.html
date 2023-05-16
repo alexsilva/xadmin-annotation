@@ -10,7 +10,7 @@
           data-object_key="{{ widget.attrs.object_key }}"
           data-filter_prefix="{{ widget.attrs.filter_prefix }}"
           data-page_param="{{ widget.attrs.page_param }}"
-          data-object_model="{{ widget.attrs.model }}"
+          data-object_model="{{ widget.attrs.object_model }}"
           data-is_editable="{{ widget.attrs.is_editable|yesno:"true,false" }}">
     <i class="fa fa-list"></i>
     <span class="d-none d-sm-inline">{% trans 'View' %}{% if not widget.attrs.is_editable %} {{ widget.attrs.verbose_name_plural }}{% endif %}</span>
