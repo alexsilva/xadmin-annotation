@@ -1,7 +1,7 @@
 {% load i18n %}
 <div class="input-group">
   {% include 'django/forms/widgets/input.html' %}
-  <button type="button" class="btn btn-secondary annotations"
+  <button type="button" class="btn btn-secondary btn-block text-left annotations"
           title="{% blocktrans with widget.attrs.verbose_name_plural as verbose_name %}View {{ verbose_name }}{% endblocktrans %}"
           data-title="{{ widget.attrs.verbose_name_plural }}"
           data-url="{{ widget.attrs.url }}"
@@ -12,8 +12,9 @@
           data-page_param="{{ widget.attrs.page_param }}"
           data-object_model="{{ widget.attrs.object_model }}"
           data-is_editable="{{ widget.attrs.is_editable|yesno:"true,false" }}">
-    <i class="fa fa-list"></i>
-    <span class="d-none d-sm-inline">{% trans 'View' %}{% if not widget.attrs.is_editable %} {{ widget.attrs.verbose_name_plural }}{% endif %}</span>
-    <span class="badge badge-primary">{{ widget.attrs.count }}</span>
+    <i class="fa fa-list mr-1"></i>
+    <span class="font-italic">{% trans 'View' %} {{ widget.attrs.verbose_name_plural }}</span>
+    <span class="badge badge-secondary badge-lg badge-pill ml-1">{{ widget.attrs.count }}</span>
+    <i class="fa fa-chevron-right text-muted float-right my-1"></i>
   </button>
 </div>
