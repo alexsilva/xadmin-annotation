@@ -1,7 +1,7 @@
 {% load i18n %}
 <div class="input-group">
   {% include 'django/forms/widgets/input.html' %}
-  <button type="button" class="btn btn-secondary btn-block text-left annotations"
+  <button type="button" class="btn btn-secondary btn-block text-left annotations h-auto"
           title="{% blocktrans with widget.attrs.verbose_name_plural as verbose_name %}View {{ verbose_name }}{% endblocktrans %}"
           data-title="{{ widget.attrs.verbose_name_plural }}"
           data-url="{{ widget.attrs.url }}"
