@@ -1,7 +1,7 @@
 # coding=utf-8
 import django.forms as django_forms
 from django.utils.module_loading import import_string
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.utils.formats import date_format
